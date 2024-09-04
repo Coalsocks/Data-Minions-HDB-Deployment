@@ -6,17 +6,16 @@
 
 import streamlit as st
 import pandas as pd
-import pickle
+from pycaret.regression import load_model, predict_model
 from datetime import datetime
 
 
 # In[ ]:
 
 
-# Load the trained model from the .pkl file
-def load_model():
-    with open('best_model.pkl', 'rb') as rf:
-        model = pickle.load(rf)
+# Load the trained model from PyCaret
+def load_model_pycaret():
+    model = load_model('best_model')  # Replace 'best_model' with your model's name
     return model
 
 
@@ -32,26 +31,10 @@ def load_data():
 # In[ ]:
 
 
-# Function to make predictions
-def predict(model, flat_type, tranc_yearmonth, floor_area_sqft, hdb_age, total_dwelling_units, remaining_lease, amenities_score, region, flat_model, storey_category, pri_dist_vac):
-    # Prepare the input data
-    data = pd.DataFrame({
-        'flat_type': [flat_type],
-        'tranc_yearmonth': [tranc_yearmonth],
-        'floor_area_sqft': [floor_area_sqft],
-        'hdb_age': [hdb_age],
-        'total_dwelling_units': [total_dwelling_units],
-        'remaining_lease': [remaining_lease],
-        'amenities_score': [amenities_score],
-        'region': [region],
-        'flat_model': [flat_model],
-        'storey_category': [storey_category],
-        'pri_dist_vac': [pri_dist_vac]
-    })
-    
-    # Make prediction
-    prediction = model.predict(data)
-    return prediction[0]
+# Function to make predictions using PyCaret
+def predict(model, input_df):
+    prediction = predict_model(model, data=input_df)
+    return prediction['Label'][0]  # 'Label' contains the predicted values
 
 
 # In[ ]:
@@ -152,7 +135,7 @@ def main():
         return pd.DataFrame(data, index=[0])
 
     # Load the model
-    model = load_model()
+    model = load_model_pycaret()
     
     # Capture user input
     input_df = user_input_features()
