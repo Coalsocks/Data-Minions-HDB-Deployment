@@ -5,6 +5,6 @@ pandas
 seaborn
 plotly==5.14.1
 scikit-learn==1.2.2
-pycaret==3.0.0
 joblib
-streamlit
+pycaret==3.3.0
+streamlit==1.20.0
