@@ -15,8 +15,8 @@ from datetime import datetime
 
 # Load the trained model from the .pkl file
 def load_model():
-    with open('rf_model.pkl', 'rb') as rf:
-        model = pickle.load(rf)
+    with open('best_model.pkl', 'rb') as best:
+        model = pickle.load(best)
     return model
 
 
