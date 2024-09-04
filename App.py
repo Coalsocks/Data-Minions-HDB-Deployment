@@ -22,8 +22,8 @@
    "source": [
     "# Load the trained model from the .pkl file\n",
     "def load_model():\n",
-    "    with open('rf_model.pkl', 'rb') as rf:\n",
-    "        model = pickle.load(rf)\n",
+    "    with open('best_model.pkl', 'rb') as best:\n",
+    "        model = pickle.load(best)\n",
     "    return model"
    ]
   },
